@@ -5,12 +5,13 @@ phases:
       - echo Logging in to Amazon ECR for CICD of test-app-one on 'date'
       - aws --version
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 867344433247.dkr.ecr.eu-north-1.amazonaws.com
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 867344433247.dkr.ecr.us-east-1.amazonaws.com
       - echo setting repository URI...
-      - REPOSITORY_URI=867344433247.dkr.ecr.eu-north-1.amazonaws.com/test-app-one
+      - REPOSITORY_URI=867344433247.dkr.ecr.us-east-1.amazonaws.com/test-app-one
       - echo REPOSITORY_URI=$REPOSITORY_URI
       - echo setting image tag...
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{pring $2}')
+      - echo IMAGE_TAG=$IMAGE_TAG
 
   build:
     commands:
