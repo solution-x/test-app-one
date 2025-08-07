@@ -12,9 +12,12 @@ phases:
       - echo setting image tag...
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{pring $2}')
       - echo IMAGE_TAG=$IMAGE_TAG
-      - docker pull openjdk:latest
-      - docker tag openjdk:latest base-images/openjdk:latest
-      - docker push base-images/openjdk:latest
+      - echo Getting Docker Hub credentials from Secrets Manager...
+      - |
+        creds=$(aws secretsmanager get-secret-value --secret-id test/docker_hub/cred --query SecretString --output text)
+        export DOCKER_HUB_USERNAME=$(echo $creds | jq -r .docker_hub_username)
+        export DOCKER_HUB_PASSWORD=$(echo $creds | jq -r .docker_hub_password)
+        echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
 
   build:
     commands:
