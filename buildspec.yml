@@ -12,6 +12,9 @@ phases:
       - echo setting image tag...
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{pring $2}')
       - echo IMAGE_TAG=$IMAGE_TAG
+      - docker pull openjdk:latest
+      - docker tag openjdk:latest base-images/openjdk:latest
+      - docker push base-images/openjdk:latest
 
   build:
     commands:
