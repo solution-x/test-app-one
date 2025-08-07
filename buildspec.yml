@@ -25,6 +25,7 @@ phases:
 
   post_build:
     commands:
+      - echo IMAGE_TAG=$IMAGE_TAG
       - echo pushing the docker image to Amazon ECR started on 'date'...
       - echo pushing to repository=$REPOSITORY_URI...
       - docker push $REPOSITORY_URI:latest
