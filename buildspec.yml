@@ -13,7 +13,7 @@ phases:
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{pring $2}')
       - echo IMAGE_TAG=$IMAGE_TAG
       - echo Getting Docker Hub credentials from Secrets Manager...
-      - docker login -u solutionex --password dckr_pat_2iQGsqpKDxYnuD3StycNOSCNAso
+      - docker login -u solutionex --password-dckr_pat_2iQGsqpKDxYnuD3StycNOSCNAso
 
   build:
     commands:
